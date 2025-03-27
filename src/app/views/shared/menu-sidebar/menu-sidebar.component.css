@@ -1,0 +1,7 @@
+.submenu {
+    display: none; /* Initially hide submenus */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  

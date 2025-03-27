@@ -1,0 +1,84 @@
+<div class="pt-2" *ngFor="let menu of pagesMenu$ | async">
+    <ul class="flex flex-col space-y-1">
+        <!-- List items -->
+        <li *ngFor="let item of menu.items">
+            <div (click)="visibilidadMenu2(menu)" class="group relative">
+                <!-- Menu List -->
+                <div class="group relative text-gray-900">
+                    <!-- Icon -->
+                    <div [ngClass]="item.active && !(verSideBar$ | async) ? 'text-primary-500' : ''"
+                        class="pointer-events-none absolute m-2">
+                        <svg-icon src="{{ item.icon }}" [svgClass]="'h-5 w-5'"> </svg-icon>
+                    </div>
+                    <!-- Generar Condicion basado en routerLink-->
+                    <ng-container [ngTemplateOutlet]="item.children ? childMenu : parentMenu"
+                        [ngTemplateOutletContext]="{ item: item }">
+                    </ng-container>
+                    <!-- Container:: routerLink habilitado -->
+                    <ng-template #parentMenu let-item="item">
+                        <div routerLink="{{ item.route }}"
+                            class="flex h-9 cursor-pointer items-center justify-start rounded text-gray-600 hover:bg-gray-100">
+                            <a routerLinkActive="text-primary-500"
+                                class="ml-10 truncate text-xs font-semibold tracking-wide focus:outline-none">
+                                {{ item.label }}
+                            </a>
+                        </div>
+                        <div class="fixed w-full" *ngIf="!(verSideBar$ | async)"> <!-- Si el menu está oculto -->
+                            <span
+                                class="z-1 absolute left-14 -top-[34px] w-auto min-w-max origin-left scale-0 rounded-md bg-black p-2 text-xs font-bold text-white shadow-md transition-all duration-200 group-hover:scale-100">
+                                {{ item.label }}
+                            </span>
+                        </div>
+                    </ng-template>
+                    <!-- container::  routerLink deshabilitado-->
+                    <ng-template #childMenu let-item="item">
+                        <div
+                            class="flex h-9 cursor-pointer items-center justify-start rounded text-gray-600 hover:bg-gray-100 dark:text-night-100">
+                            <a
+                                class="ml-10 truncate text-xs font-semibold tracking-wide text-gray-600 focus:outline-none">
+                                {{ item.label }}
+                            </a>
+                        </div>
+                        <div class="fixed w-full" *ngIf="!(verSideBar$ | async)"> <!-- Si el menu está oculto -->
+                            <span
+                                class="z-1 absolute left-14 -top-[34px] w-auto min-w-max origin-left scale-0 rounded-md bg-black p-2 text-xs font-bold text-white shadow-md transition-all duration-200 group-hover:scale-100">
+                                {{ item.label }}
+                            </span>
+                        </div>
+                    </ng-template>
+                    <ul *ngIf="item.children" [ngStyle]="{ display: menu.expanded ? 'block' : 'none' }" class="submenu">
+                        <li *ngFor="let subItem of item.children" class="submenu-item">
+                            <div routerLink="{{ subItem.route }}"
+                                class="flex h-9 cursor-pointer items-center justify-start rounded text-gray-600 hover:bg-gray-100">
+                                <div [ngClass]="subItem.active && !(verSideBar$ | async) ? 'text-primary-500' : ''"
+                                    class="pointer-events-none absolute m-2">
+                                    <svg-icon src="{{ subItem.icon }}" [svgClass]="'h-5 w-5'"> </svg-icon>
+                                </div>
+                                <a routerLinkActive="text-primary-500"
+                                    class="ml-10 truncate text-xs font-semibold tracking-wide focus:outline-none">
+                                    {{ subItem.label }}
+                                </a>
+                            </div>
+                            <div class="fixed w-full" *ngIf="!(verSideBar$ | async)"> <!-- Si el menu está oculto -->
+                                <span
+                                    class="z-1 absolute left-14 -top-[34px] w-auto min-w-max origin-left scale-0 rounded-md p-2 text-xs font-bold text-black shadow-md transition-all duration-200 group-hover:scale-100">
+                                    {{ subItem.label }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                    <button *ngIf="item.children" [ngClass]="{ 'rotate-90': menu.expanded }"
+                        class="pointer-events-none absolute top-1 right-0 flex items-center p-1 transition-all duration-500">
+                        <svg-icon *ngIf="(verSideBar$ | async)" src="assets/icons/outline/chevron-right.svg"
+                            [svgClass]="'h-5 w-5'"></svg-icon>
+                    </button>
+                </div>
+                <!-- Submenu items -->
+                <!-- <app-submenu-sidebar [submenu]="item"></app-submenu-sidebar> -->
+            </div>
+        </li>
+    </ul>
+    <div class="pt-3" *ngIf="menu.separator">
+        <hr class="border-dashed border-gray-500 dark:border-night-500" />
+    </div>
+</div>

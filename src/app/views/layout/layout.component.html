@@ -1,0 +1,12 @@
+<div class="flex h-screen w-full overflow-hidden">
+    <app-sidebar></app-sidebar>
+    <div class="flex grow flex-col content-start bg-gray-100">
+        <app-navbar></app-navbar>
+        <div class="grow overflow-auto scrollbar-thin scrollbar-thumb-white scrollbar-track-gray-100">
+            <div class="mx-auto px-2 py-2 sm:px-8 lg:container">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+        <app-footer></app-footer>
+    </div>
+</div>

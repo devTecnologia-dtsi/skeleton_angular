@@ -1,0 +1,67 @@
+<div class="flex min-h-screen flex-col w-screen items-center">
+    <div class="h-screen md:grid md:grid-cols-2 w-full justify-start">
+        <div class="block md:hidden sticky top-0 header bg-yellow-500 h-1/3">
+            <img src="assets/institucional/logo_b.png" alt="Logo" class="logo">
+        </div>
+        <!-- Columna izquierda con fondo amarillo -->
+        <div class="bg-yellow-500 hidden sm:hidden md:flex md:items-center md:justify-center">
+            <div class="flex items-center h-full ">
+                <!-- <img src="assets/institucional/logo_b.png" alt="Imagen" class="block mx-auto xs:w-1/8 w-2/4"> -->
+                <img src="assets/institucional/logo_b.png" alt="Imagen" class="block mx-auto w-1/4 sm:w-auto">
+            </div>
+        </div>
+        <!-- Formulario de login -->
+        <div class="flex flex-col items-center">
+            <div class="mx-8 mt-8">
+                <div class="flex justify-center mb-8">
+                    <img src="assets/institucional/horizontal.png" alt="" class="mx-auto w-2/4 md:w-3/4">
+                </div>
+            </div>
+            <div class="justify-center items-center w-full mt-10 md:mt-32">
+                <form class="bg-white pt-6 pb-8 mb-4 w-full text-center" [formGroup]="loginForm">
+                    <div class="mb-6 block items-center mx-auto">
+                        <!-- <a class="inline-block">asd</a> -->
+                        <!-- <div
+                            class="relative inline-block w-10 mr-2 align-middle select-none transition durat200 ease-in"> -->
+                        <input type="checkbox" id="toggle" name="toggle" class="w-5 h-5 mx-2"
+                            formControlName="politica">
+                        <!-- </div> -->
+                        Aceptas la
+                        <a class="underline inline-block justify-center"
+                            href="https://portalweb-uniminuto.s3.us-east-1.amazonaws.com/activos_digitales/DocInstitucionales/Lineamientos%20y%20Manuales/ResRec1542Prog_Integral_Gestion_Datos_Personales.pdf">
+                            política de tratamiento de datos?
+                        </a>
+
+                        <div class="text-red-500 text-xs italic mt-2" *ngIf="validacion('politica')">
+                            {{politica}}
+                        </div>
+
+                    </div>
+                    <button *ngIf="!loginDisplay" (click)="login()" type=" button" class=" mx-auto text-white bg-[#3b5998] hover:bg-[#3b5998]/90
+                        focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium
+                         rounded-lg text-sm px-5 py-2.5 text-center items-center mr-2 mb-2">
+                        <img src="assets/icons/microsoft.svg" alt="Microsoft Logo" class=" inline-block w-6 h-6 mr-2">
+                        Inicia sesión con tu correo institucional
+                    </button>
+                    <div class="flex justify-center pt-1">
+                        <a href="https://tuclave.uniminuto.edu"
+                            class="block mx-auto bg-white hover:border hover:border-[#3b5998]/90 px-6 py-2 rounded-full text-center">
+                            Olvidaste la contraseña?</a>
+                    </div>
+                </form>
+            </div>
+            <!--
+            <div class="flex justify-center pt-1 mb-4">
+              <a href="/accesoinvitado"
+                  class="block mx-auto bg-white hover:border hover:border-[#3b5998]/90 px-6 py-2 rounded-full text-center">
+                  Acceso a Invitado Eventos</a>
+            </div>
+-->
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <!--This is to avoid reload during acquireTokenSilent() because of hidden iframe -->
+    <!-- <router-outlet *ngIf="!isIframe"></router-outlet> -->
+</div>
